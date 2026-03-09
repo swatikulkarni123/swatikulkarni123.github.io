@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Swati Kulkarni – Android Engineer</title>
+<meta name="description" content="Android Engineer at Jio, Mumbai. Kotlin · Java · Flutter · Jetpack Compose."/>
+<meta property="og:title" content="Swati Kulkarni – Android Engineer"/>
+<meta property="og:description" content="Building native Android experiences with Kotlin, Java & Flutter."/>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;600;700&family=Space+Grotesk:wght@300;400;600;700;800&display=swap');
+
+:root{
+  --a:#00e5ff;--b:#7c3aed;--c:#00ff88;--d:#ff3d71;--e:#ffaa00;
+  --bg:#050508;--s1:#0d0d1a;--s2:#12121f;--border:rgba(0,229,255,.12);
+  --text:#e8eaf6;--muted:#4a5568;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{background:var(--bg);color:var(--text);font-family:'Space Grotesk',sans-serif;overflow-x:hidden;}
+::-webkit-scrollbar{width:3px;}
+::-webkit-scrollbar-thumb{background:linear-gradient(var(--b),var(--a));border-radius:4px;}
+
+/* ── NAVBAR ── */
+.nav{
+  position:fixed;top:0;left:0;right:0;z-index:100;
+  background:rgba(5,5,8,.8);backdrop-filter:blur(20px);
+  border-bottom:1px solid var(--border);
+  display:flex;align-items:center;justify-content:space-between;
+  padding:14px 40px;
+}
+.nav-logo{
+  font-family:'JetBrains Mono',monospace;font-weight:700;font-size:.95rem;
+  background:linear-gradient(90deg,var(--a),var(--b));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+}
+.nav-links{display:flex;gap:24px;}
+.nav-links a{
+  font-size:.78rem;color:var(--muted);text-decoration:none;
+  font-family:'JetBrains Mono',monospace;letter-spacing:.06em;
+  transition:color .2s;
+}
+.nav-links a:hover{color:var(--a);}
+.nav-dot{width:8px;height:8px;border-radius:50%;background:var(--c);box-shadow:0 0 8px var(--c);animation:ndot 2s ease-in-out infinite;}
+@keyframes ndot{0%,100%{opacity:1;}50%{opacity:.3;}}
+
+/* ── MATRIX ── */
+#matrix{position:fixed;top:0;left:0;width:100%;height:100%;z-index:0;opacity:.04;pointer-events:none;}
+
+/* ── GRID OVERLAY ── */
+.grid-overlay{
+  position:fixed;inset:0;z-index:0;pointer-events:none;
+  background-image:linear-gradient(rgba(0,229,255,.03) 1px,transparent 1px),linear-gradient(90deg,rgba(0,229,255,.03) 1px,transparent 1px);
+  background-size:60px 60px;
+}
+
+/* ── SCANLINE ── */
+.scanline{
+  position:fixed;top:0;left:0;right:0;height:2px;z-index:999;pointer-events:none;
+  background:linear-gradient(90deg,transparent,var(--a),var(--b),var(--a),transparent);
+  box-shadow:0 0 20px var(--a),0 0 40px var(--b);
+  animation:scanDown 6s linear infinite;
+}
+@keyframes scanDown{0%{top:-2px;opacity:0;}5%{opacity:1;}95%{opacity:.6;}100%{top:100vh;opacity:0;}}
+
+/* ── CURSOR GLOW ── */
+.cursor-glow{
+  position:fixed;width:300px;height:300px;border-radius:50%;
+  background:radial-gradient(circle,rgba(124,58,237,.06) 0%,transparent 70%);
+  pointer-events:none;z-index:1;transform:translate(-50%,-50%);
+  transition:left .08s,top .08s;
+}
+
+body::before{
+  content:'';position:fixed;inset:0;z-index:0;pointer-events:none;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+  opacity:.4;
+}
+
+/* ── LAYOUT ── */
+.wrap{position:relative;z-index:2;max-width:980px;margin:0 auto;padding:0 20px 100px;}
+
+/* ── HERO ── */
+.hero{min-height:100vh;display:flex;flex-direction:column;justify-content:center;padding:80px 0 40px;position:relative;}
+
+.phone-mockup{
+  position:absolute;right:-60px;top:50%;transform:translateY(-50%);
+  width:180px;height:340px;
+  border:2px solid rgba(0,229,255,.3);border-radius:32px;
+  background:linear-gradient(160deg,rgba(13,13,26,.9),rgba(0,0,0,.95));
+  box-shadow:0 0 40px rgba(0,229,255,.15),inset 0 0 20px rgba(0,229,255,.05);
+  overflow:hidden;animation:phoneFloat 6s ease-in-out infinite;
+}
+@keyframes phoneFloat{0%,100%{transform:translateY(-50%) rotate(2deg);}50%{transform:translateY(calc(-50% - 15px)) rotate(-2deg);}}
+.phone-notch{width:60px;height:18px;background:#000;border-radius:0 0 14px 14px;margin:0 auto 8px;}
+.phone-screen{padding:8px;height:calc(100% - 30px);display:flex;flex-direction:column;gap:5px;}
+.phone-row{height:20px;border-radius:4px;background:linear-gradient(90deg,rgba(0,229,255,.15),rgba(124,58,237,.15));animation:phRow 3s ease-in-out infinite;}
+.phone-row:nth-child(2){animation-delay:.2s;width:75%;}
+.phone-row:nth-child(3){animation-delay:.4s;width:90%;}
+.phone-row:nth-child(4){animation-delay:.6s;width:60%;background:linear-gradient(90deg,rgba(0,255,136,.2),transparent);}
+.phone-row:nth-child(5){animation-delay:.8s;width:80%;}
+.phone-row.big{height:80px;background:linear-gradient(135deg,rgba(124,58,237,.2),rgba(0,229,255,.1));border-radius:8px;position:relative;overflow:hidden;}
+.phone-row.big::after{content:'▶';display:flex;align-items:center;justify-content:center;height:100%;color:var(--a);font-size:1.4rem;animation:pulse 2s infinite;}
+@keyframes phRow{0%,100%{opacity:.6;}50%{opacity:1;}}
+@keyframes pulse{0%,100%{transform:scale(1);}50%{transform:scale(1.2);}}
+
+.hero-eyebrow{
+  font-family:'JetBrains Mono',monospace;font-size:.75rem;color:var(--a);
+  letter-spacing:.2em;text-transform:uppercase;
+  display:flex;align-items:center;gap:10px;margin-bottom:20px;
+  animation:fadeIn .6s ease both;
+}
+.hero-eyebrow::before{content:'';width:40px;height:1px;background:var(--a);box-shadow:0 0 8px var(--a);}
+.hero-eyebrow::after{content:'';flex:1;height:1px;background:linear-gradient(to right,rgba(0,229,255,.3),transparent);}
+
+.hero-name{font-size:clamp(2.6rem,7vw,5.5rem);font-weight:800;line-height:1;position:relative;margin-bottom:8px;}
+.hero-name .line1{display:block;background:linear-gradient(135deg,#fff,rgba(255,255,255,.8));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;animation:slideRight .7s .1s ease both;}
+.hero-name .line2{display:block;background:linear-gradient(135deg,var(--a) 0%,var(--b) 60%,var(--d) 100%);background-size:200% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;animation:slideRight .7s .2s ease both,shimmer 4s 1s linear infinite;}
+@keyframes shimmer{to{background-position:200% center;}}
+@keyframes slideRight{from{opacity:0;transform:translateX(-30px);}to{opacity:1;transform:translateX(0);}}
+@keyframes fadeIn{from{opacity:0;}to{opacity:1;}}
+
+.hero-role{font-family:'JetBrains Mono',monospace;font-size:clamp(.85rem,2vw,1.1rem);color:var(--muted);margin:16px 0 28px;animation:fadeIn .7s .4s ease both;opacity:0;animation-fill-mode:both;}
+.hero-role .hl{color:var(--c);font-weight:600;}
+
+.glitch{position:relative;}
+.glitch::before,.glitch::after{content:attr(data-text);position:absolute;inset:0;-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;background:inherit;}
+.glitch::before{animation:glitchTop 4s 2s infinite;clip-path:polygon(0 0,100% 0,100% 40%,0 40%);}
+.glitch::after{animation:glitchBot 4s 2s infinite;clip-path:polygon(0 60%,100% 60%,100% 100%,0 100%);}
+@keyframes glitchTop{0%,95%,100%{transform:none;opacity:0;}96%{transform:translate(-2px,-1px);opacity:.8;filter:hue-rotate(90deg);}97%{transform:translate(2px,1px);opacity:.8;filter:hue-rotate(180deg);}98%{transform:none;opacity:0;}}
+@keyframes glitchBot{0%,95%,100%{transform:none;opacity:0;}96%{transform:translate(2px,1px);opacity:.7;filter:hue-rotate(-90deg);}97%{transform:translate(-1px,-2px);opacity:.7;}98%{transform:none;opacity:0;}}
+
+.terminal{background:rgba(0,0,0,.6);border:1px solid rgba(0,229,255,.2);border-radius:12px;padding:16px 20px;font-family:'JetBrains Mono',monospace;font-size:.82rem;max-width:480px;animation:fadeIn .7s .5s ease both;opacity:0;animation-fill-mode:both;box-shadow:0 0 30px rgba(0,229,255,.08);}
+.terminal-bar{display:flex;gap:6px;margin-bottom:12px;}
+.t-dot{width:10px;height:10px;border-radius:50%;}
+.t-dot.r{background:#ff5f57;}.t-dot.y{background:#febc2e;}.t-dot.g{background:#28c840;}
+.t-prompt{color:var(--c);}
+#typed-text{color:#fff;}
+.cursor-blink{display:inline-block;width:8px;height:14px;background:var(--a);margin-left:2px;vertical-align:middle;animation:blink .7s step-end infinite;}
+.t-out{color:var(--a);margin-top:4px;min-height:1.2em;}
+@keyframes blink{50%{opacity:0;}}
+
+.hero-stats{display:flex;gap:32px;margin-top:32px;flex-wrap:wrap;animation:fadeIn .7s .6s ease both;opacity:0;animation-fill-mode:both;}
+.hstat{text-align:left;}
+.hstat-num{font-size:2rem;font-weight:800;background:linear-gradient(135deg,var(--a),var(--b));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;font-family:'JetBrains Mono',monospace;}
+.hstat-lbl{font-size:.65rem;color:var(--muted);text-transform:uppercase;letter-spacing:.1em;margin-top:2px;}
+.hstat-divider{width:1px;background:var(--border);align-self:stretch;}
+
+/* ── SCROLL PROGRESS ── */
+.progress-bar{position:fixed;top:0;left:0;height:2px;background:linear-gradient(90deg,var(--b),var(--a),var(--c));z-index:200;transition:width .1s;}
+
+/* ── SECTIONS ── */
+.section{margin-top:80px;opacity:0;transform:translateY(30px);transition:opacity .7s ease,transform .7s ease;}
+.section.visible{opacity:1;transform:none;}
+.sec-head{display:flex;align-items:center;gap:14px;margin-bottom:32px;}
+.sec-num{font-family:'JetBrains Mono',monospace;font-size:.7rem;color:var(--a);border:1px solid rgba(0,229,255,.3);padding:3px 8px;border-radius:4px;background:rgba(0,229,255,.05);}
+.sec-title{font-size:1.4rem;font-weight:700;color:#fff;}
+.sec-line{flex:1;height:1px;background:linear-gradient(to right,rgba(0,229,255,.2),transparent);}
+
+/* ── ABOUT ── */
+.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+.about-card{background:var(--s1);border:1px solid var(--border);border-radius:16px;padding:24px;position:relative;overflow:hidden;transition:border-color .3s,transform .3s;}
+.about-card:hover{border-color:var(--a);transform:translateY(-3px);}
+.about-card::after{content:'';position:absolute;top:0;left:-100%;width:60%;height:100%;background:linear-gradient(90deg,transparent,rgba(0,229,255,.04),transparent);transition:left .6s ease;}
+.about-card:hover::after{left:150%;}
+.about-card-icon{font-size:2rem;margin-bottom:12px;}
+.about-card h3{font-size:.95rem;font-weight:700;color:#fff;margin-bottom:6px;}
+.about-card p{font-size:.8rem;color:var(--muted);line-height:1.7;}
+.about-card.wide{grid-column:1/-1;}
+.arch{display:flex;flex-direction:column;gap:8px;margin-top:16px;}
+.arch-layer{display:flex;align-items:center;gap:10px;padding:8px 16px;border-radius:8px;border:1px solid;font-size:.75rem;font-family:'JetBrains Mono',monospace;font-weight:600;position:relative;overflow:hidden;cursor:default;transition:transform .2s;}
+.arch-layer:hover{transform:scaleX(1.01);}
+.arch-layer::before{content:'';position:absolute;inset:0;opacity:.06;background:var(--lc,var(--a));}
+.arch-layer-dot{width:8px;height:8px;border-radius:50%;background:var(--lc,var(--a));box-shadow:0 0 10px var(--lc,var(--a));}
+.arch-layer-label{color:var(--lc,var(--a));flex:1;}
+.arch-layer-items{color:rgba(255,255,255,.4);font-size:.65rem;}
+
+/* ── SKILLS ── */
+.orbit-wrap{position:relative;height:340px;display:flex;align-items:center;justify-content:center;}
+.orbit-center{width:90px;height:90px;border-radius:50%;background:linear-gradient(135deg,var(--b),var(--a));display:flex;align-items:center;justify-content:center;font-size:2rem;z-index:2;position:relative;box-shadow:0 0 40px rgba(0,229,255,.4),0 0 80px rgba(124,58,237,.3);animation:centerPulse 3s ease-in-out infinite;}
+@keyframes centerPulse{0%,100%{box-shadow:0 0 40px rgba(0,229,255,.4),0 0 80px rgba(124,58,237,.3);}50%{box-shadow:0 0 60px rgba(0,229,255,.6),0 0 120px rgba(124,58,237,.5);}}
+.orbit-ring{position:absolute;border-radius:50%;border:1px dashed;display:flex;align-items:center;justify-content:center;}
+.ring1{width:180px;height:180px;border-color:rgba(0,229,255,.2);animation:spin1 12s linear infinite;}
+.ring2{width:280px;height:280px;border-color:rgba(124,58,237,.15);animation:spin1 20s linear infinite reverse;}
+.ring3{width:340px;height:340px;border-color:rgba(0,255,136,.1);animation:spin1 30s linear infinite;}
+@keyframes spin1{to{transform:rotate(360deg);}}
+.orbit-node{position:absolute;width:44px;height:44px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.1rem;background:var(--s2);border:1px solid var(--border);box-shadow:0 0 16px rgba(0,0,0,.5);cursor:default;transition:transform .3s,box-shadow .3s;}
+.orbit-node:hover{transform:scale(1.25)!important;box-shadow:0 0 20px var(--nc,var(--a));}
+.skill-list{display:flex;flex-direction:column;gap:16px;}
+.sk{display:flex;flex-direction:column;gap:8px;}
+.sk-header{display:flex;justify-content:space-between;align-items:center;}
+.sk-name{font-size:.82rem;font-weight:600;display:flex;align-items:center;gap:8px;}
+.sk-badge{font-size:.6rem;padding:2px 8px;border-radius:999px;font-family:'JetBrains Mono',monospace;background:rgba(0,229,255,.08);border:1px solid rgba(0,229,255,.2);color:var(--a);}
+.sk-pct{font-family:'JetBrains Mono',monospace;font-size:.75rem;color:var(--muted);}
+.sk-track{height:5px;background:rgba(255,255,255,.04);border-radius:999px;overflow:visible;position:relative;}
+.sk-fill{height:100%;border-radius:999px;width:0%;transition:width 1.6s cubic-bezier(.4,0,.2,1);position:relative;}
+.sk-fill::after{content:'';position:absolute;right:-4px;top:50%;transform:translateY(-50%);width:12px;height:12px;border-radius:50%;background:inherit;box-shadow:0 0 12px 4px currentColor;filter:brightness(1.5);}
+.sk-glow{position:absolute;top:-6px;left:0;height:17px;border-radius:999px;width:0%;filter:blur(8px);opacity:.4;transition:width 1.6s cubic-bezier(.4,0,.2,1);}
+
+/* ── PROJECTS ── */
+.proj-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;}
+.proj{background:var(--s1);border:1px solid var(--border);border-radius:16px;padding:20px;position:relative;overflow:hidden;cursor:default;transition:transform .3s,border-color .3s,box-shadow .3s;}
+.proj:hover{transform:translateY(-6px);border-color:var(--pc,var(--a));box-shadow:0 12px 40px rgba(0,0,0,.5);}
+.proj-glow{position:absolute;top:-40px;right:-40px;width:120px;height:120px;border-radius:50%;background:var(--pc,var(--a));filter:blur(40px);opacity:0;transition:opacity .4s;}
+.proj:hover .proj-glow{opacity:.08;}
+.proj-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;}
+.proj-icon{font-size:1.5rem;}
+.proj-stars{font-family:'JetBrains Mono',monospace;font-size:.72rem;color:#fbbf24;background:rgba(251,191,36,.08);border:1px solid rgba(251,191,36,.2);padding:3px 8px;border-radius:6px;}
+.proj-name{font-size:.92rem;font-weight:700;color:#fff;margin-bottom:8px;}
+.proj-desc{font-size:.75rem;color:var(--muted);line-height:1.7;margin-bottom:14px;}
+.proj-tags{display:flex;gap:5px;flex-wrap:wrap;}
+.tag{font-size:.62rem;padding:3px 8px;border-radius:6px;font-family:'JetBrains Mono',monospace;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);color:rgba(255,255,255,.5);}
+
+/* ── HEX GRID ── */
+.hex-grid{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;}
+.hex{position:relative;width:90px;padding:14px 8px;clip-path:polygon(50% 0%,100% 25%,100% 75%,50% 100%,0% 75%,0% 25%);background:linear-gradient(135deg,var(--s2),var(--s1));display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;cursor:default;transition:transform .3s;}
+.hex::before{content:'';position:absolute;inset:1px;clip-path:polygon(50% 0%,100% 25%,100% 75%,50% 100%,0% 75%,0% 25%);background:var(--s1);z-index:0;transition:background .3s;}
+.hex:hover{transform:scale(1.1) translateY(-4px);}
+.hex:hover::before{background:rgba(0,229,255,.05);}
+.hex-emoji{font-size:1.3rem;position:relative;z-index:1;}
+.hex-label{font-size:.6rem;color:rgba(255,255,255,.5);position:relative;z-index:1;text-align:center;font-weight:600;}
+
+/* ── CONTRIB ── */
+.contrib-grid{display:grid;grid-template-columns:repeat(52,1fr);gap:3px;}
+.contrib-cell{aspect-ratio:1;border-radius:2px;background:rgba(255,255,255,.04);transition:transform .15s,background .3s;cursor:default;}
+.contrib-cell:hover{transform:scale(1.4);}
+.c1{background:rgba(0,229,255,.15)!important;}
+.c2{background:rgba(0,229,255,.35)!important;}
+.c3{background:rgba(0,229,255,.6)!important;}
+.c4{background:rgba(0,229,255,.9)!important;box-shadow:0 0 6px rgba(0,229,255,.5);}
+
+/* ── FOOTER ── */
+.footer{margin-top:80px;padding:40px 0 20px;border-top:1px solid var(--border);display:flex;flex-direction:column;align-items:center;gap:12px;}
+.footer-logo{font-family:'JetBrains Mono',monospace;font-size:1.3rem;font-weight:700;background:linear-gradient(135deg,var(--a),var(--b));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.footer-sub{font-size:.75rem;color:var(--muted);}
+.footer-links{display:flex;gap:16px;}
+.f-link{font-size:.75rem;color:var(--muted);text-decoration:none;padding:6px 14px;border:1px solid var(--border);border-radius:999px;transition:all .3s;}
+.f-link:hover{color:var(--a);border-color:rgba(0,229,255,.4);background:rgba(0,229,255,.05);}
+
+.particle{position:fixed;pointer-events:none;z-index:999;border-radius:50%;animation:particleFly var(--pd) ease-out forwards;}
+@keyframes particleFly{0%{opacity:1;transform:translate(0,0) scale(1);}100%{opacity:0;transform:translate(var(--px),var(--py)) scale(0);}}
+
+@media(max-width:700px){
+  .phone-mockup{display:none;}
+  .about-grid,.proj-grid{grid-template-columns:1fr 1fr;}
+  .nav-links{display:none;}
+}
+@media(max-width:500px){.about-grid,.proj-grid{grid-template-columns:1fr;}}
+</style>
+</head>
+<body>
+
+<!-- PROGRESS BAR -->
+<div class="progress-bar" id="progress"></div>
+
+<!-- CURSOR GLOW -->
+<div class="cursor-glow" id="cglow"></div>
+
+<!-- NAVBAR -->
+<nav class="nav">
+  <div class="nav-logo">SK.dev</div>
+  <div class="nav-links">
+    <a href="#s1">About</a>
+    <a href="#s2">Skills</a>
+    <a href="#s3">Projects</a>
+    <a href="#s4">Stack</a>
+    <a href="#s5">Activity</a>
+  </div>
+  <div class="nav-dot"></div>
+</nav>
+
+<canvas id="matrix"></canvas>
+<div class="grid-overlay"></div>
+<div class="scanline"></div>
+
+<div class="wrap">
+
+<!-- HERO -->
+<div class="hero">
+  <div class="phone-mockup">
+    <div class="phone-notch"></div>
+    <div class="phone-screen">
+      <div class="phone-row"></div>
+      <div class="phone-row big"></div>
+      <div class="phone-row"></div>
+      <div class="phone-row"></div>
+      <div class="phone-row"></div>
+      <div class="phone-row big"></div>
+      <div class="phone-row"></div>
+      <div class="phone-row"></div>
+    </div>
+  </div>
+  <div class="hero-eyebrow">Android Engineer @ Jio &nbsp;·&nbsp; Mumbai, India</div>
+  <h1 class="hero-name">
+    <span class="line1">Swati Kulkarni</span>
+    <span class="line2 glitch" data-text="Building Android.">Building Android.</span>
+  </h1>
+  <div class="hero-role">
+    Crafting <span class="hl">native Android</span> + <span class="hl">Flutter</span> apps with <span class="hl">Kotlin</span> &amp; <span class="hl">Java</span>
+  </div>
+  <div class="terminal">
+    <div class="terminal-bar">
+      <div class="t-dot r"></div><div class="t-dot y"></div><div class="t-dot g"></div>
+    </div>
+    <div><span class="t-prompt">swati@jio:~$</span> <span id="typed-text"></span><span class="cursor-blink"></span></div>
+    <div class="t-out" id="t-out"></div>
+  </div>
+  <div class="hero-stats">
+    <div class="hstat"><div class="hstat-num counter" data-t="8">0</div><div class="hstat-lbl">Years Coding</div></div>
+    <div class="hstat-divider"></div>
+    <div class="hstat"><div class="hstat-num counter" data-t="20">0</div><div class="hstat-lbl">GitHub Stars</div></div>
+    <div class="hstat-divider"></div>
+    <div class="hstat"><div class="hstat-num counter" data-t="8">0</div><div class="hstat-lbl">Repositories</div></div>
+    <div class="hstat-divider"></div>
+    <div class="hstat"><div class="hstat-num counter" data-t="4">0</div><div class="hstat-lbl">Languages</div></div>
+  </div>
+</div>
+
+<!-- ABOUT -->
+<div class="section" id="s1">
+  <div class="sec-head"><div class="sec-num">01</div><div class="sec-title">About Me</div><div class="sec-line"></div></div>
+  <div class="about-grid">
+    <div class="about-card">
+      <div class="about-card-icon">📱</div>
+      <h3>Android Developer</h3>
+      <p>Passionate about building smooth, performant Android experiences. Love working with Jetpack libraries, clean architecture, and modern UI with Compose.</p>
+    </div>
+    <div class="about-card">
+      <div class="about-card-icon">🦋</div>
+      <h3>Flutter & Dart</h3>
+      <p>Cross-platform development using Flutter with functional patterns (Dartz), clean separation, and reactive state management.</p>
+    </div>
+    <div class="about-card wide">
+      <div class="about-card-icon">🏗️</div>
+      <h3>Android Architecture — My Stack</h3>
+      <div class="arch">
+        <div class="arch-layer" style="--lc:#00e5ff;border-color:rgba(0,229,255,.25);"><div class="arch-layer-dot"></div><div class="arch-layer-label">UI Layer</div><div class="arch-layer-items">Jetpack Compose · XML Layouts · ViewBinding</div></div>
+        <div class="arch-layer" style="--lc:#7c3aed;border-color:rgba(124,58,237,.25);"><div class="arch-layer-dot"></div><div class="arch-layer-label">ViewModel Layer</div><div class="arch-layer-items">LiveData · StateFlow · ViewModel</div></div>
+        <div class="arch-layer" style="--lc:#00ff88;border-color:rgba(0,255,136,.25);"><div class="arch-layer-dot"></div><div class="arch-layer-label">Domain / Repo Layer</div><div class="arch-layer-items">UseCases · Repository Pattern</div></div>
+        <div class="arch-layer" style="--lc:#ffaa00;border-color:rgba(255,170,0,.25);"><div class="arch-layer-dot"></div><div class="arch-layer-label">Data Layer</div><div class="arch-layer-items">Room DB · Retrofit · Coroutines</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SKILLS -->
+<div class="section" id="s2">
+  <div class="sec-head"><div class="sec-num">02</div><div class="sec-title">Skills & Languages</div><div class="sec-line"></div></div>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:32px;align-items:center;">
+    <div class="skill-list">
+      <div class="sk"><div class="sk-header"><span class="sk-name">☕ Java <span class="sk-badge">Primary</span></span><span class="sk-pct">89.4%</span></div><div class="sk-track"><div class="sk-glow" style="background:linear-gradient(90deg,#f97316,#ef4444);" data-w="89.4"></div><div class="sk-fill" style="background:linear-gradient(90deg,#f97316,#ef4444);" data-w="89.4"></div></div></div>
+      <div class="sk"><div class="sk-header"><span class="sk-name">🟣 Kotlin <span class="sk-badge">Modern</span></span><span class="sk-pct">7.1%</span></div><div class="sk-track"><div class="sk-glow" style="background:linear-gradient(90deg,var(--b),var(--d));" data-w="7.1"></div><div class="sk-fill" style="background:linear-gradient(90deg,var(--b),var(--d));" data-w="7.1"></div></div></div>
+      <div class="sk"><div class="sk-header"><span class="sk-name">🐦 Dart/Flutter <span class="sk-badge">XPlatform</span></span><span class="sk-pct">2.5%</span></div><div class="sk-track"><div class="sk-glow" style="background:linear-gradient(90deg,#0175c2,var(--a));" data-w="2.5"></div><div class="sk-fill" style="background:linear-gradient(90deg,#0175c2,var(--a));" data-w="2.5"></div></div></div>
+      <div class="sk"><div class="sk-header"><span class="sk-name">🌐 JavaScript</span><span class="sk-pct">1.0%</span></div><div class="sk-track"><div class="sk-glow" style="background:linear-gradient(90deg,#f7df1e,#f97316);" data-w="1.0"></div><div class="sk-fill" style="background:linear-gradient(90deg,#f7df1e,#f97316);" data-w="1.0"></div></div></div>
+    </div>
+    <div class="orbit-wrap">
+      <div class="orbit-ring ring1">
+        <div class="orbit-node" style="--nc:#f97316;position:absolute;top:-22px;">☕</div>
+        <div class="orbit-node" style="--nc:#a97bff;position:absolute;bottom:-22px;">🟣</div>
+      </div>
+      <div class="orbit-ring ring2">
+        <div class="orbit-node" style="--nc:#0175c2;position:absolute;top:-22px;">🐦</div>
+        <div class="orbit-node" style="--nc:#00b4ab;position:absolute;right:-22px;">🎯</div>
+        <div class="orbit-node" style="--nc:#ff6f00;position:absolute;bottom:-22px;">🤖</div>
+        <div class="orbit-node" style="--nc:#f7df1e;position:absolute;left:-22px;">🌐</div>
+      </div>
+      <div class="orbit-ring ring3">
+        <div class="orbit-node" style="--nc:#4ade80;position:absolute;top:-22px;">🗄</div>
+        <div class="orbit-node" style="--nc:#60a5fa;position:absolute;right:-22px;">🎨</div>
+        <div class="orbit-node" style="--nc:#f472b6;position:absolute;bottom:-22px;">⚡</div>
+        <div class="orbit-node" style="--nc:#22d3ee;position:absolute;left:-22px;">📦</div>
+      </div>
+      <div class="orbit-center">📱</div>
+    </div>
+  </div>
+</div>
+
+<!-- PROJECTS -->
+<div class="section" id="s3">
+  <div class="sec-head"><div class="sec-num">03</div><div class="sec-title">Featured Projects</div><div class="sec-line"></div></div>
+  <div class="proj-grid">
+    <div class="proj" style="--pc:#a97bff;"><div class="proj-glow"></div><div class="proj-header"><div class="proj-icon">📋</div><div class="proj-stars">★ 9</div></div><div class="proj-name">Todo App</div><div class="proj-desc">To-do list with Room database, date-specific push notifications, and MVVM architecture.</div><div class="proj-tags"><div class="tag">Kotlin</div><div class="tag">Room DB</div><div class="tag">MVVM</div></div></div>
+    <div class="proj" style="--pc:#00b4ab;"><div class="proj-glow"></div><div class="proj-header"><div class="proj-icon">🎯</div><div class="proj-stars">★ 3</div></div><div class="proj-name">Dartz Option/Either</div><div class="proj-desc">Flutter library for functional API handling — BaseController + BaseView with Either & Option types.</div><div class="proj-tags"><div class="tag">Dart</div><div class="tag">Flutter</div><div class="tag">FP</div></div></div>
+    <div class="proj" style="--pc:#00e5ff;"><div class="proj-glow"></div><div class="proj-header"><div class="proj-icon">🔔</div><div class="proj-stars">★ 2</div></div><div class="proj-name">QuickNotify</div><div class="proj-desc">Jetpack Compose global overlay — Toast, Snackbar, Dialog & custom alerts. Zero boilerplate.</div><div class="proj-tags"><div class="tag">Kotlin</div><div class="tag">Compose</div></div></div>
+    <div class="proj" style="--pc:#4ade80;"><div class="proj-glow"></div><div class="proj-header"><div class="proj-icon">🎵</div><div class="proj-stars">★ 2</div></div><div class="proj-name">Media Player</div><div class="proj-desc">Full-featured music player app with playback controls and clean Java architecture.</div><div class="proj-tags"><div class="tag">Java</div><div class="tag">MediaPlayer API</div></div></div>
+    <div class="proj" style="--pc:#f472b6;"><div class="proj-glow"></div><div class="proj-header"><div class="proj-icon">🤖</div><div class="proj-stars">★ 1</div></div><div class="proj-name">GitHub Profile Gen</div><div class="proj-desc">Auto-generates a professional README from a GitHub username by analysing repos & contributions.</div><div class="proj-tags"><div class="tag">JavaScript</div><div class="tag">GitHub API</div></div></div>
+    <div class="proj" style="--pc:#ffaa00;border-style:dashed;"><div class="proj-glow"></div><div class="proj-header"><div class="proj-icon">🚧</div></div><div class="proj-name" style="color:var(--muted);">Next Project</div><div class="proj-desc" style="color:rgba(74,85,104,.6);">Something new is in the works. Stay tuned!</div><div class="proj-tags"><div class="tag">Coming Soon</div></div></div>
+  </div>
+</div>
+
+<!-- TECH STACK -->
+<div class="section" id="s4">
+  <div class="sec-head"><div class="sec-num">04</div><div class="sec-title">Tech Stack</div><div class="sec-line"></div></div>
+  <div class="hex-grid">
+    <div class="hex"><span class="hex-emoji">☕</span><span class="hex-label">Java</span></div>
+    <div class="hex"><span class="hex-emoji">🟣</span><span class="hex-label">Kotlin</span></div>
+    <div class="hex"><span class="hex-emoji">🐦</span><span class="hex-label">Flutter</span></div>
+    <div class="hex"><span class="hex-emoji">🎯</span><span class="hex-label">Dart</span></div>
+    <div class="hex"><span class="hex-emoji">🎨</span><span class="hex-label">Compose</span></div>
+    <div class="hex"><span class="hex-emoji">🗄</span><span class="hex-label">Room DB</span></div>
+    <div class="hex"><span class="hex-emoji">⚡</span><span class="hex-label">Coroutines</span></div>
+    <div class="hex"><span class="hex-emoji">🤖</span><span class="hex-label">TensorFlow</span></div>
+    <div class="hex"><span class="hex-emoji">📦</span><span class="hex-label">Dartz</span></div>
+    <div class="hex"><span class="hex-emoji">🔔</span><span class="hex-label">Notif API</span></div>
+    <div class="hex"><span class="hex-emoji">🌐</span><span class="hex-label">JS</span></div>
+    <div class="hex"><span class="hex-emoji">🔧</span><span class="hex-label">MVVM</span></div>
+  </div>
+</div>
+
+<!-- CONTRIBUTIONS -->
+<div class="section" id="s5">
+  <div class="sec-head"><div class="sec-num">05</div><div class="sec-title">Contribution Graph</div><div class="sec-line"></div></div>
+  <div style="background:var(--s1);border:1px solid var(--border);border-radius:16px;padding:24px;">
+    <div class="contrib-grid" id="contrib"></div>
+    <div style="display:flex;justify-content:flex-end;align-items:center;gap:6px;margin-top:10px;font-size:.65rem;color:var(--muted);">
+      Less
+      <span style="width:10px;height:10px;background:rgba(255,255,255,.04);border-radius:2px;display:block;"></span>
+      <span style="width:10px;height:10px;background:rgba(0,229,255,.15);border-radius:2px;display:block;"></span>
+      <span style="width:10px;height:10px;background:rgba(0,229,255,.35);border-radius:2px;display:block;"></span>
+      <span style="width:10px;height:10px;background:rgba(0,229,255,.6);border-radius:2px;display:block;"></span>
+      <span style="width:10px;height:10px;background:rgba(0,229,255,.9);border-radius:2px;display:block;box-shadow:0 0 5px rgba(0,229,255,.5);"></span>
+      More
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<div class="footer">
+  <div class="footer-logo">SK.dev</div>
+  <div class="footer-sub">Building beautiful Android experiences from Mumbai 🇮🇳</div>
+  <div class="footer-links">
+    <a class="f-link" href="https://github.com/swatikulkarni123" target="_blank">GitHub</a>
+    <a class="f-link" href="#">LinkedIn</a>
+    <a class="f-link" href="#">Portfolio</a>
+  </div>
+  <div style="font-size:.65rem;color:#1e293b;margin-top:4px;">© 2025 Swati Kulkarni · All rights reserved</div>
+</div>
+
+</div>
+
+<script>
+/* MATRIX */
+const mc=document.getElementById('matrix'),mx=mc.getContext('2d');
+function rsz(){mc.width=innerWidth;mc.height=innerHeight;}rsz();
+window.addEventListener('resize',rsz);
+const cols=Math.floor(mc.width/16),drops=Array(cols).fill(1);
+const chars='アイウエオカキクケコABCDEFGHIJKLMN0123456789</>{}[]';
+(function rain(){
+  mx.fillStyle='rgba(5,5,8,.06)';mx.fillRect(0,0,mc.width,mc.height);
+  mx.fillStyle='#00e5ff';mx.font='13px JetBrains Mono';
+  drops.forEach((y,i)=>{
+    mx.fillText(chars[Math.floor(Math.random()*chars.length)],i*16,y*16);
+    if(y*16>mc.height&&Math.random()>.975)drops[i]=0;
+    drops[i]++;
+  });
+  setTimeout(rain,45);
+})();
+
+/* SCROLL PROGRESS */
+window.addEventListener('scroll',()=>{
+  const p=(scrollY/(document.body.scrollHeight-innerHeight))*100;
+  document.getElementById('progress').style.width=p+'%';
+});
+
+/* CURSOR GLOW */
+const cg=document.getElementById('cglow');
+document.addEventListener('mousemove',e=>{
+  cg.style.left=e.clientX+'px';cg.style.top=e.clientY+'px';
+});
+
+/* TERMINAL */
+const cmds=[
+  {cmd:'run ./swati.apk',out:'✓ App launched successfully!'},
+  {cmd:'git log --oneline -1',out:'a3f9c2e Add QuickNotify overlay'},
+  {cmd:'./gradlew assembleRelease',out:'BUILD SUCCESSFUL in 3s 🚀'},
+  {cmd:'adb install todo-v2.apk',out:'Success. 1 package installed.'},
+  {cmd:'flutter pub get',out:'Got dependencies! ✓'},
+];
+let ci=0,ch=0,ph='cmd';
+const tel=document.getElementById('typed-text'),tout=document.getElementById('t-out');
+function typeNext(){
+  const {cmd,out}=cmds[ci];
+  if(ph==='cmd'){
+    if(ch<=cmd.length){tel.textContent=cmd.slice(0,ch++);setTimeout(typeNext,55);}
+    else{ph='out';setTimeout(typeNext,400);}
+  } else {
+    tout.textContent=out;
+    setTimeout(()=>{tout.textContent='';tel.textContent='';ch=0;ph='cmd';ci=(ci+1)%cmds.length;setTimeout(typeNext,300);},2000);
+  }
+}
+typeNext();
+
+/* COUNTERS */
+function startCounter(el){
+  const t=+el.dataset.t,dur=1600;let s=null;
+  (function f(ts){if(!s)s=ts;const p=Math.min((ts-s)/dur,1);el.textContent=Math.round(p*t);if(p<1)requestAnimationFrame(f);})(performance.now());
+}
+
+/* SKILLS */
+function animSkills(){
+  document.querySelectorAll('.sk-fill').forEach(b=>b.style.width=b.dataset.w+'%');
+  document.querySelectorAll('.sk-glow').forEach(b=>b.style.width=b.dataset.w+'%');
+}
+
+/* CONTRIB GRID */
+const cgg=document.getElementById('contrib');
+for(let i=0;i<52*7;i++){
+  const d=document.createElement('div'),r=Math.random();
+  let c='contrib-cell';
+  if(r>.85)c+=' c4';else if(r>.7)c+=' c3';else if(r>.5)c+=' c2';else if(r>.35)c+=' c1';
+  d.className=c;cgg.appendChild(d);
+}
+
+/* OBSERVER */
+const io=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      e.target.classList.add('visible');
+      e.target.querySelectorAll('.counter').forEach(startCounter);
+      if(e.target.id==='s2')animSkills();
+    }
+  });
+},{threshold:.15});
+document.querySelectorAll('.section').forEach(s=>io.observe(s));
+document.querySelectorAll('.counter').forEach(startCounter);
+
+/* PARTICLES */
+document.addEventListener('click',e=>{
+  const cols=['#00e5ff','#7c3aed','#00ff88','#ff3d71','#ffaa00'];
+  for(let i=0;i<12;i++){
+    const p=document.createElement('div');
+    p.className='particle';
+    const a=Math.random()*360,d=40+Math.random()*80;
+    p.style.cssText=`left:${e.clientX}px;top:${e.clientY}px;width:${3+Math.random()*4}px;height:${3+Math.random()*4}px;background:${cols[~~(Math.random()*cols.length)]};--px:${Math.cos(a*Math.PI/180)*d}px;--py:${Math.sin(a*Math.PI/180)*d}px;--pd:${.4+Math.random()*.5}s;`;
+    document.body.appendChild(p);
+    setTimeout(()=>p.remove(),600);
+  }
+});
+</script>
+</body>
+</html>
